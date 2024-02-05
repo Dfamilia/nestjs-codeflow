@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
-import { DogType } from 'src/interface/dog.interface';
-import { DogDTO } from 'src/dto/dog.dto';
+import { Controller, Delete, Get, Param, Post, Req } from '@nestjs/common';
+import { IDog } from '../../interface/dog.interface';
 import { DogService } from './dog.service';
 import { Request } from 'express';
 
@@ -9,16 +8,22 @@ export class DogsController {
   constructor(private readonly dogService: DogService) {}
 
   @Get()
-  findAll(): DogType[] {
+  findAll(): IDog[] {
     return this.dogService.findAll();
   }
 
+  @Get('/:id')
+  getById(@Param('id') id: string): IDog {
+    return this.dogService.findOne(id);
+  }
+
   @Post()
-  addDog(@Req() request: Request): string {
-    const dog: DogDTO = {
-      ...request.body,
-      fecha: new Date(),
-    };
-    return this.dogService.addDog(dog);
+  addDog(@Req() request: Request): IDog {
+    return this.dogService.addDog(request.body);
+  }
+
+  @Delete('/:id')
+  deleteById(@Param('id') id: string): IDog {
+    return this.dogService.deleteById(id);
   }
 }
