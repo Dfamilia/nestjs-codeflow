@@ -29,4 +29,14 @@ export class DogService {
     dogsDb.filter((dog: IDog) => dog.id !== id);
     return deletedDog;
   }
+  updateItem(dog: any): IDog {
+    const { id, payload } = dog;
+    console.log('klk', id, payload);
+    return {
+      id: 'hola0',
+      nombre: 'string',
+      tipo: 'string',
+      fecha: new Date('2024-06-25'),
+    };
+  }
 }

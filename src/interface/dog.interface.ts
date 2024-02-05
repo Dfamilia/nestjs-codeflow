@@ -1,6 +1,6 @@
 export interface IDog {
-  id: string;
+  id?: string;
   nombre: string;
   tipo: string;
-  fecha: Date;
+  fecha?: Date;
 }

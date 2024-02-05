@@ -1,7 +1,17 @@
-import { Controller, Delete, Get, Param, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Req,
+} from '@nestjs/common';
 import { IDog } from '../../interface/dog.interface';
 import { DogService } from './dog.service';
 import { Request } from 'express';
+import { DogDTO } from 'src/dto/dog.dto';
 
 @Controller('api/dogs')
 export class DogsController {
@@ -20,6 +30,11 @@ export class DogsController {
   @Post()
   addDog(@Req() request: Request): IDog {
     return this.dogService.addDog(request.body);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() payload: DogDTO): IDog {
+    return this.dogService.updateItem({ id, payload });
   }
 
   @Delete('/:id')
