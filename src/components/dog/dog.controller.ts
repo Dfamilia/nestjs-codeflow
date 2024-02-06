@@ -34,7 +34,7 @@ export class DogsController {
 
   @Put(':id')
   update(@Param('id') id: string, @Body() payload: DogDTO): IDog {
-    return this.dogService.updateItem({ id, payload });
+    return this.dogService.updateById({ id, payload });
   }
 
   @Delete('/:id')

@@ -1,42 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { IDog, IDogParam } from '../../interface/dog.interface';
 import { DogDTO } from '../../dto/dog.dto';
-import { dogsDb } from '../../database/dogs';
+import { getDogsDb, setDogsDb } from '../../database/dogs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class DogService {
+  // getAll
   findAll(): IDog[] {
-    return dogsDb;
+    return getDogsDb();
   }
 
+  // create
   addDog(dog: DogDTO): IDog {
     const newDog: DogDTO = {
       ...dog,
       id: uuidv4(),
       fecha: new Date(),
     };
-    dogsDb.push(newDog);
+    setDogsDb(newDog);
     return newDog;
   }
 
+  // get by id
   findOne(id: string): IDog {
-    return dogsDb.filter((dog: IDog) => dog.id === id).at(0);
+    return getDogsDb()
+      .filter((dog: IDog) => dog.id === id)
+      .at(0);
   }
 
+  // delete by id
   deleteById(id: string): IDog {
-    const deletedDog = dogsDb.findById(id);
-    dogsDb.filter((dog: IDog) => dog.id !== id);
+    const deletedDog = getDogsDb().findById(id);
+    getDogsDb().filter((dog: IDog) => dog.id !== id);
     return deletedDog;
   }
-  updateItem(dog: IDogParam): IDog {
-    const { id, payload } = dog;
-    console.log('klk', id, payload);
-    return {
-      id: 'hola0',
-      nombre: 'string',
-      tipo: 'string',
-      fecha: new Date('2024-06-25'),
+
+  // update by id
+  updateById(dog: IDogParam): IDog {
+    const newDog = {
+      id: dog.id,
+      ...dog.payload,
+      fecha: new Date(),
     };
+
+    const dogsList = getDogsDb().map((e: IDog) =>
+      e.id === newDog.id ? { ...newDog } : e,
+    );
+    setDogsDb(dogsList);
+    return newDog;
   }
 }
