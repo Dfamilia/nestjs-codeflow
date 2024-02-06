@@ -32,7 +32,7 @@ export class DogService {
   // delete by id
   deleteById(id: string): IDog {
     const deletedDog = getDogsDb().findById(id);
-    getDogsDb().filter((dog: IDog) => dog.id !== id);
+    setDogsDb(getDogsDb().filter((dog: IDog) => dog.id !== id));
     return deletedDog;
   }
 
