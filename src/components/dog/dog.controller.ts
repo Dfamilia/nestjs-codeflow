@@ -37,7 +37,7 @@ export class DogsController {
     return this.dogService.updateById({ id, payload });
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   deleteById(@Param('id') id: string): IDog {
     return this.dogService.deleteById(id);
   }
