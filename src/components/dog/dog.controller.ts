@@ -22,7 +22,7 @@ export class DogsController {
     return this.dogService.findAll();
   }
 
-  @Get('/:id')
+  @Get(':id')
   getById(@Param('id') id: string): IDog {
     return this.dogService.findOne(id);
   }
@@ -37,7 +37,7 @@ export class DogsController {
     return this.dogService.updateById({ id, payload });
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   deleteById(@Param('id') id: string): IDog {
     return this.dogService.deleteById(id);
   }
