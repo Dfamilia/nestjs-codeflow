@@ -13,7 +13,7 @@ export class DogService {
 
   // create
   addDog(dog: DogDTO): IDog {
-    const newDog: DogDTO = {
+    const newDog = {
       ...dog,
       id: uuidv4(),
       fecha: new Date(),

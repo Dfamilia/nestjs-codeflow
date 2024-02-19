@@ -7,6 +7,8 @@ import {
   Post,
   Put,
   Req,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { IDog } from '../../interface/dog.interface';
 import { DogService } from './dog.service';
@@ -28,8 +30,8 @@ export class DogsController {
   }
 
   @Post()
-  addDog(@Req() request: Request): IDog {
-    return this.dogService.addDog(request.body);
+  addDog(@Body() payload: DogDTO): IDog {
+    return this.dogService.addDog(payload);
   }
 
   @Put(':id')
