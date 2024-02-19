@@ -22,7 +22,7 @@ export class DogsController {
     return this.dogService.findAll();
   }
 
-  @Get('/:id')
+  @Get(':id')
   getById(@Param('id') id: string): IDog {
     return this.dogService.findOne(id);
   }

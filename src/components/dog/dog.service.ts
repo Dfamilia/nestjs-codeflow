@@ -24,23 +24,21 @@ export class DogService {
 
   // get by id
   findOne(id: string): IDog {
-    return getDogsDb()
-      .filter((dog: IDog) => dog.id === id)
-      .at(0);
+    return getDogsDb().find((dog: IDog) => dog.id === id);
   }
 
   // delete by id
   deleteById(id: string): IDog {
-    const deletedDog = getDogsDb().find((x) => x.id === id);
-    setDogsDb(getDogsDb().filter((dog: IDog) => dog.id !== id));
+    const deletedDog = getDogsDb().find((dog) => dog.id === id);
+    setDogsDb(getDogsDb().filter((dog) => dog.id !== id));
     return deletedDog;
   }
 
   // update by id
   updateById(dog: IDogParam): IDog {
     const newDog = {
-      id: dog.id,
       ...dog.payload,
+      id: dog.id,
       fecha: new Date(),
     };
 
